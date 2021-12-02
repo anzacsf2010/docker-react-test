@@ -1,0 +1,14 @@
+# Use an existing docker image as a base
+# smallest image in which the package node can be found
+FROM node:16-alpine
+
+# To avoid writing to directories which might also appear in the project like bin and lib
+WORKDIR /usr/app   
+
+# Download and install dependency
+COPY package.json .  
+RUN npm install
+COPY . .
+
+# Tell the image what to do when it starts as a container
+CMD ["npm","run", "start"]
